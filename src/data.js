@@ -26,17 +26,20 @@ export const categories = [
     {
         id:1,
         img:"https://images-eu.ssl-images-amazon.com/images/I/71M6VcybJML._AC._SR360,460.jpg",
-        title:"SHIRT STYLE"
+        title:"SHIRT STYLE",
+        cat:"woman"
     },
     {
         id:2,
-        img:"https://www.fodors.com/wp-content/uploads/2020/09/Loungewear__HERO__HERO-970SAG-10.jpg",
-        title:"LOUNGEWEAR STYLE"
+        img:"https://img5.cfcdn.club/84/bc/84e3297505a9841386b8453591904ebc_350x350.jpg",
+        title:"COAT STYLE",
+        cat:"coat"
     },
     {
         id:3,
         img:"https://media-cldnry.s-nbcnews.com/image/upload/newscms/2022_13/1858600/3046075712-1-1-1-6242ff0a7e1fb.jpg",
-        title:"LIGHT JACKETS"
+        title:"LIGHT JACKETS",
+        cat:"jeans"
     }
 ]
 
