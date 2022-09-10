@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import styled from 'styled-components'
 import { mobile } from '../Responsive';
+import { useSelector } from 'react-redux';
 
 
 const Container = styled.div``;
@@ -149,6 +150,10 @@ const SummaryButton  = styled.button`
 
 
 const Cart = () => {
+
+    const cart = useSelector(state => state.cart)
+    
+
   return (
     <Container>
         <Navbar/>
@@ -156,8 +161,6 @@ const Cart = () => {
         <Wrapper>
             <Title>YOUR BAG</Title>
             <Top>
-
-
                 <TopButton>CONTINUE SHOPPING</TopButton>
                 <TopTexts>
                     <TopText>Shopping Bag(2)</TopText>
@@ -167,45 +170,27 @@ const Cart = () => {
             </Top>
             <Bottom>
                 <Info>
-                    <Product>
+                  {cart.products !== null ? cart.products.map((product) => (
+                   <Product key={product._id}>
                         <ProductDetail>
-                            <Image src="https://images.footballfanatics.com/manchester-united/manchester-united-away-shirt-2022-23-long-sleeve-with-ronaldo-7-printing_ss4_p-13324372+u-24dui9fa94utra7ygac0+v-9d3524371fde4c0a804d4b66dc48e318.jpg?_hv=1"/>
+                            <Image src={product.img}/>
                             <Details>
-                                <ProductName><b>Product:</b>UNITED JERSEY</ProductName>
-                                <ProductId><b>ID:</b>866646464</ProductId>
-                                <ProductColor color="black"/>
-                                <ProductSize><b>Size:</b>38</ProductSize>
+                                <ProductName><b>Product:</b> {product.title} </ProductName>
+                                <ProductId><b>ID:</b> {product._id} </ProductId>
+                                <ProductColor color={product.color}/>
+                                <ProductSize><b>Size:</b>{product.size}</ProductSize>
                             </Details>
                         </ProductDetail>
                         <PriceDetail>
                             <ProductAmountContainer>
                                 <AddIcon />
-                                    <ProductAmount>2</ProductAmount>
+                                    <ProductAmount>{product.quantity}</ProductAmount>
                                 <RemoveIcon />
                             </ProductAmountContainer>
-                            <ProductPrice>$200</ProductPrice>
+                            <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
                         </PriceDetail>
-                    </Product>
+                    </Product>)) : <Product> there is no cart</Product>  }
                     <Hr />
-                    <Product>
-                        <ProductDetail>
-                            <Image src="https://images.footballfanatics.com/manchester-united/manchester-united-away-shirt-2022-23-long-sleeve-with-ronaldo-7-printing_ss4_p-13324372+u-24dui9fa94utra7ygac0+v-9d3524371fde4c0a804d4b66dc48e318.jpg?_hv=1"/>
-                            <Details>
-                                <ProductName><b>Product:</b>UNITED JERSEY</ProductName>
-                                <ProductId><b>ID:</b>866646464</ProductId>
-                                <ProductColor color="black"/>
-                                <ProductSize><b>Size:</b>38</ProductSize>
-                            </Details>
-                        </ProductDetail>
-                        <PriceDetail>
-                            <ProductAmountContainer>
-                                <AddIcon />
-                                    <ProductAmount>2</ProductAmount>
-                                <RemoveIcon />
-                            </ProductAmountContainer>
-                            <ProductPrice>$200</ProductPrice>
-                        </PriceDetail>
-                    </Product>
                 </Info>
                 <Summary>
                     <SummaryTittle>Order Summary</SummaryTittle>
