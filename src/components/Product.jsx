@@ -63,7 +63,7 @@ transition: all 0.5s ease;
 `
  
 const Product = ({item}) => {
-  console.log(item);
+  
   return (
     <Container>
         <Circle />

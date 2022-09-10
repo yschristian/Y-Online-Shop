@@ -29,6 +29,7 @@ ${mobile({marginRight:"10px",marginLeft:"10px"})}
 `;
 const SocialContainer = styled.div`
 display: flex;
+${mobile({display:"flex",alignItems:"center",justifyContent:"center"})}
 `;
 const SocialIcon = styled.div`
 width: 40px;

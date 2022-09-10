@@ -19,10 +19,9 @@ const Products = ({cat, filters,sort}) => {
     const getProducts = async ()=>{
       try {
         const res = await axios.get(
-           cat ? `http://localhost:5000/api/product/getAllProduct?category=${cat}`
-              : "http://localhost:5000/api/product/getAllProduct"
+           cat ? `https://ecommerc-eba.herokuapp.com/api/product/getAllProduct?category=${cat}`
+              : "https://ecommerc-eba.herokuapp.com/api/product/getAllProduct"
         )
-      console.log(res);
         setProducts(res.data)
       } catch (error) {
         

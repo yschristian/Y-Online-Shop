@@ -6,6 +6,9 @@ import NewsLetter from "../components/NewsLetter"
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { mobile } from "../Responsive"
+import { useLocation } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { publicRequest } from "../requestMethod"
 
 const Container = styled.div`
 `;
@@ -114,45 +117,64 @@ font-size: 18px;
 `;
 
 const Product = () => {
+    const location = useLocation();
+    const id = location.pathname.split("/")[2];
+    const [product, setProduct] = useState({});
+    const [quantity ,setQuantity] = useState(1)
+    // console.log(product.product);
+
+    useEffect(()=>{
+        const getProduct = async()=>{
+            try {
+                const res = await publicRequest.get("/product/getProduct/" + id)
+                setProduct(res.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getProduct()
+    },[id])
+    const handleQuantity =(type)=>{
+        if(type==="dec"){
+          quantity > 1 && setQuantity(quantity - 1)
+        }else{
+            setQuantity(quantity + 1)
+        }
+    }
   return (
     <Container> 
         <Navbar />
         <Announcement />
         <Wrapper>
             <ImgContainer>
-                <Image src="https://cdn-images.farfetch-contents.com/ambush-corset-jumpsuit_17578546_37408290_2048.jpg"/>
+                <Image src={product.product.img}/>
             </ImgContainer>
             <InfoContainer>
-                <Title>Denim Jumpsuit</Title>
-                <Desc>
-                 Lorem ipsum dolor sit amet, consectetur 
-                 adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                 laboris nisi ut aliquip ex ea commodo consequat.
-                 </Desc>
-                 <Price>220$</Price>
+                <Title>{product.product.title}</Title>
+                <Desc>{product.product.desc}</Desc>
+                 <Price>$ {product.product.price}</Price>
                  <FilterContainer>
                     <Filter>
                         <FilterTitle>Color</FilterTitle>
-                        <FilterColor color="black"/>
-                        <FilterColor color="darkblue"/>
-                        <FilterColor color="gray"/>
+                        {product.product.color.map((c)=>(
+                            <FilterColor color={c} key={c}/>
+                        ))}
+                        
                     </Filter>
                     <Filter>
                         <FilterTitle>Size</FilterTitle>
                         <FilterSize>
-                            <FilterSizeOption>XS</FilterSizeOption>
-                            <FilterSizeOption>S</FilterSizeOption>
-                            <FilterSizeOption>M</FilterSizeOption>
-                            <FilterSizeOption>L</FilterSizeOption>
-                            <FilterSizeOption>XL</FilterSizeOption>
+                        {product.product.size.map((s)=>(
+                            <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                        ))}    
                         </FilterSize>
                     </Filter>
                  </FilterContainer>
                  <AddContainer>
                     <AmountContainer>
-                        <RemoveIcon/>
-                            <Amount>1</Amount>
-                        <AddIcon/>
+                        <RemoveIcon onClick={()=> handleQuantity("dec")}/>
+                            <Amount>{quantity}</Amount>
+                        <AddIcon onClick={()=> handleQuantity("inc")}/>
                     </AmountContainer>
                     <Button>Add to Cart</Button>
                  </AddContainer>
