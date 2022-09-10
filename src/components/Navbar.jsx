@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {mobile} from "../Responsive"
+import { Link } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -77,8 +78,12 @@ const Navbar = () => {
                  <Logo>YUBA.</Logo>
              </Center>
              <Right>
-                <MenuItem>REGISTER</MenuItem>
-                <MenuItem>SIGN IN</MenuItem>
+                <Link to="/register" className='link'>
+                    <MenuItem>REGISTER</MenuItem>
+                </Link>
+                <Link to="/login" className='link'>
+                  <MenuItem>SIGN IN</MenuItem>
+                </Link>
                 <MenuItem>
                     <Badge badgeContent={4} color="primary">
                          <ShoppingCartOutlinedIcon />

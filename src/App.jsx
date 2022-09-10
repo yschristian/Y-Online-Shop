@@ -4,6 +4,7 @@ import Product from './pages/Product'
 import Products from './components/Products'
 import Cart from './pages/Cart'
 import Home from './pages/Home'
+import "./App.css"
 import {BrowserRouter as Router , Routes ,Route, } from "react-router-dom";
 import Login from './pages/Login'
 import ProductList from './pages/ProductList'
