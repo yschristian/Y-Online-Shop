@@ -152,6 +152,7 @@ const SummaryButton  = styled.button`
 const Cart = () => {
 
     const cart = useSelector(state => state.cart)
+    console.log(cart);
     
 
   return (
@@ -170,15 +171,15 @@ const Cart = () => {
             </Top>
             <Bottom>
                 <Info>
-                  {cart.products !== null ? cart.products.map((product) => (
-                   <Product key={product._id}>
-                        <ProductDetail>
-                            <Image src={product.img}/>
+                  { cart.products !== undefined? cart.products.map((product) => (
+                   <Product key={product.product._id} >
+                        <ProductDetail >
+                            <Image src={product.product.img}/>
                             <Details>
-                                <ProductName><b>Product:</b> {product.title} </ProductName>
-                                <ProductId><b>ID:</b> {product._id} </ProductId>
-                                <ProductColor color={product.color}/>
-                                <ProductSize><b>Size:</b>{product.size}</ProductSize>
+                                <ProductName><b>Product:</b> {product.product.title} </ProductName>
+                                <ProductId><b>ID:</b> {product.product._id} </ProductId>
+                                <ProductColor color={product.product.color}/>
+                                <ProductSize><b>Size:</b>{product.product.size}</ProductSize>
                             </Details>
                         </ProductDetail>
                         <PriceDetail>
@@ -187,9 +188,9 @@ const Cart = () => {
                                     <ProductAmount>{product.quantity}</ProductAmount>
                                 <RemoveIcon />
                             </ProductAmountContainer>
-                            <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                            <ProductPrice>$ {product.product.price * product.quantity}</ProductPrice>
                         </PriceDetail>
-                    </Product>)) : <Product> there is no cart</Product>  }
+                    </Product>)):  <Product> there is no cart</Product>  }
                     <Hr />
                 </Info>
                 <Summary>
