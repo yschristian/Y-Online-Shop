@@ -7,7 +7,15 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import styled from 'styled-components'
 import { mobile } from '../Responsive';
 import { useSelector } from 'react-redux';
+import StripeCheckout from "react-stripe-checkout"
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { userRequest } from '../requestMethod';
+import { useNavigate } from 'react-router-dom';
 
+
+const KEY="pk_test_51LXi84F9jjlXmWE113unDmTAQsipiwErE6JWPZjUQu3PZDvrbxlTiD7At57rtQsOmA6gxnx2d9Z0wV5GiHPnCfuV00YCbnivGf"
+// console.log(KEY);
 
 const Container = styled.div``;
 
@@ -152,9 +160,30 @@ const SummaryButton  = styled.button`
 const Cart = () => {
 
     const cart = useSelector(state => state.cart)
-    console.log(cart);
-    
+    const [stripeToken ,setStripeToken] = useState(null)
+    const navigate = useNavigate()
 
+
+    const onToken = (token)=>{
+        setStripeToken(token)
+    }
+    useEffect(()=>{
+        const makeRequest = async () =>{
+            try {
+                const res = await userRequest.post("/checkout/payment",{
+                    tokenId:stripeToken.id,
+                    amount:500,
+                    
+                })
+                
+                navigate("/success",{data:res.data})
+            } catch (error) {
+                
+            }
+            stripeToken && makeRequest()          
+        }
+    },[stripeToken, cart.total, navigate])
+    
   return (
     <Container>
         <Navbar/>
@@ -197,7 +226,7 @@ const Cart = () => {
                     <SummaryTittle>Order Summary</SummaryTittle>
                         <SummaryItem>
                             <SummaryItemText>subtotal</SummaryItemText>
-                            <SummaryItemPrice>$79</SummaryItemPrice>
+                            <SummaryItemPrice>${cart.total}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Estimate Shipping</SummaryItemText>
@@ -209,9 +238,20 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem type ="total">
                             <SummaryItemText >Total</SummaryItemText>
-                            <SummaryItemPrice>$90</SummaryItemPrice>
+                            <SummaryItemPrice>${cart.total}</SummaryItemPrice>
                         </SummaryItem>
-                        <SummaryButton>CHECKOUT NOW</SummaryButton>
+                        <StripeCheckout
+                        name="YubaGroup Shop"
+                        image="https://res.cloudinary.com/dxpzmicmr/image/upload/v1662891492/WhatsApp_Image_2022-09-11_at_12.12.56_PM_j3lb9e.jpg" 
+                        billingAddress
+                        shippingAddress
+                        description={`Your Total is $ ${cart.total}`} 
+                        amount={cart.total * 100}  
+                        token={onToken}
+                        stripeKey={KEY}                    >
+                            <SummaryButton>CHECKOUT NOW</SummaryButton>
+                        </StripeCheckout>
+                        
                 </Summary>
             </Bottom>
         </Wrapper>
