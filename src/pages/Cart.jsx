@@ -14,7 +14,7 @@ import { userRequest } from '../requestMethod';
 import { useNavigate } from 'react-router-dom';
 
 
-const KEY="pk_test_51LXi84F9jjlXmWE113unDmTAQsipiwErE6JWPZjUQu3PZDvrbxlTiD7At57rtQsOmA6gxnx2d9Z0wV5GiHPnCfuV00YCbnivGf"
+const KEY=process.env.REACT_APP_STRIPE
 // console.log(KEY);
 
 const Container = styled.div``;
@@ -176,7 +176,10 @@ const Cart = () => {
                     
                 })
                 
-                navigate("/success",{data:res.data})
+                navigate("/success",{
+                    stripeData: res.data,
+                    products: cart
+                })
             } catch (error) {
                 
             }
@@ -184,6 +187,7 @@ const Cart = () => {
         }
     },[stripeToken, cart.total, navigate])
     
+    console.log(stripeToken);
   return (
     <Container>
         <Navbar/>
@@ -248,7 +252,7 @@ const Cart = () => {
                         description={`Your Total is $ ${cart.total}`} 
                         amount={cart.total * 100}  
                         token={onToken}
-                        stripeKey={KEY}                    >
+                        stripeKey={KEY}>
                             <SummaryButton>CHECKOUT NOW</SummaryButton>
                         </StripeCheckout>
                         

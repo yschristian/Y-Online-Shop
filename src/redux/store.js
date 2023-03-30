@@ -17,6 +17,7 @@ import {
     user: userReducer,
     cart: cartReducer
   })
+
 const persistConfig = {
     key : 'root',
     version : 1,
