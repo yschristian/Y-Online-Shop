@@ -23,6 +23,7 @@ const App = () =>{
         <Route path='/product/:id' element={<Product/>} />
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/success' element={<Success/>}/>
+        {/* <Route path='/login' element={<Login/>}/> */}
          <Route 
          path='/login'
          element={ user ? ( <Navigate replace to="/"/>) : (<Login/>)} 

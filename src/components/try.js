@@ -1,9 +1,9 @@
 import React from 'react'
 
-const try = () => {
+const Try = () => {
   return (
-    <div>try</div>
+    <div>T</div>
   )
 }
 
-export default try
+export default Try

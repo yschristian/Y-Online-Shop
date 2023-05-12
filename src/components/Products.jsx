@@ -19,8 +19,8 @@ const Products = ({cat, filters,sort}) => {
     const getProducts = async ()=>{
       try {
         const res = await axios.get(
-           cat ? `https://yuba-ecommerce-api.vercel.app/api/product/getAllProduct?category=${cat}`
-              : "https://yuba-ecommerce-api.vercel.app/api/product/getAllProduct"
+           cat ? `https://yuba-ecommerce-api.onrender.com/api/product/getAllProduct?category=${cat}`
+              : "https://yuba-ecommerce-api.onrender.com/api/product/getAllProduct"
         )
         setProducts(res.data)
       } catch (error) {
