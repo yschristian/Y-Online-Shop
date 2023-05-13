@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { mobile } from '../Responsive';
+import Navbar from '../components/Navbar';
 
 const Container = styled.div`
     width: 100vw  ;
@@ -56,16 +57,18 @@ const Button = styled.button`
 
 const Register = () => {
   return (
+    <>
+    <Navbar/>
     <Container>
         <Wrapper>
             <Tittle>CREATE AN ACCOUNT</Tittle>
             <Form>
-                <Input placeholder="name"/>
-                <Input placeholder="Last Name"/>
+                {/* <Input placeholder="name"/>
+                <Input placeholder="Last Name"/> */}
                 <Input placeholder="Username"/>
                 <Input placeholder="Email"/>
                 <Input placeholder="Password"/>
-                <Input placeholder="Confirm Password"/>
+                {/* <Input placeholder="Confirm Password"/> */}
                 <Agreement>
                     By Creating an account , I consent to the processing of my personal data in
                      accordance with the <b>PRIVACY POLICY</b>
@@ -74,6 +77,7 @@ const Register = () => {
             </Form>
         </Wrapper>
     </Container>
+    </>
   )
 }
 

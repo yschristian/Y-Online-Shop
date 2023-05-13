@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { login } from '../redux/apiCalls';
 import { mobile } from '../Responsive';
+import Navbar from '../components/Navbar';
 
 const Container = styled.div`
     width: 100vw  ;
@@ -78,6 +79,8 @@ const Login = () => {
     }
 
    return (
+    <>
+    <Navbar />
     <Container>
         <Wrapper>
             <Tittle>SIGN IN</Tittle>
@@ -98,6 +101,7 @@ const Login = () => {
             </Form>
         </Wrapper>
     </Container>
+    </>
   )
 }
 
